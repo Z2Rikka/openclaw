@@ -2507,7 +2507,6 @@ export const KNIP_UNUSED_EXPORT_BASELINE = [
   "src/plugins/bundle-mcp.ts: EnabledBundleMcpConfigResult",
   "src/plugins/bundled-capability-runtime.ts: buildVitestCapabilityShimAliasMap",
   "src/plugins/bundled-channel-runtime.ts: resolveBundledChannelWorkspacePath",
-  "src/plugins/bundled-dir.ts: setBundledPluginsDirOverrideForTest",
   "src/plugins/bundled-dir.ts: SourceCheckoutDependencyDiagnostic",
   "src/plugins/bundled-load-path-aliases.ts: BundledPluginLoadPathAlias",
   "src/plugins/bundled-load-path-aliases.ts: BundledPluginLoadPathAliasKind",
@@ -2756,7 +2755,6 @@ export const KNIP_UNUSED_EXPORT_BASELINE = [
   "src/plugins/memory-state.ts: MemoryRuntimeBackendConfig",
   "src/plugins/memory-state.ts: MemoryRuntimeQmdConfig",
   "src/plugins/memory-state.ts: registerMemoryFlushPlanResolver",
-  "src/plugins/memory-state.ts: registerMemoryPromptSection",
   "src/plugins/memory-state.ts: registerMemoryRuntime",
   "src/plugins/min-host-version.ts: MIN_HOST_VERSION_FORMAT",
   "src/plugins/min-host-version.ts: MinHostVersionCheckResult",
@@ -3517,4 +3515,7 @@ export const KNIP_UNUSED_EXPORT_BASELINE = [
 ];
 
 // Platform-variant findings. Allowed when present; never required.
-export const KNIP_OPTIONAL_UNUSED_EXPORT_BASELINE = [];
+export const KNIP_OPTIONAL_UNUSED_EXPORT_BASELINE = [
+  "src/plugins/bundled-dir.ts: setBundledPluginsDirOverrideForTest",
+  "src/plugins/memory-state.ts: registerMemoryPromptSection",
+];

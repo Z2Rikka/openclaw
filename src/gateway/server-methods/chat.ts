@@ -4402,6 +4402,7 @@ export const chatHandlers: GatewayRequestHandlers = {
                   thinkingLevelOverride: p.thinking,
                   fastModeOverride: p.fastMode,
                   userTurnTranscriptRecorder: userTurnRecorder,
+                  ...(restartSafeAdmission ? { suppressNextUserMessagePersistence: true } : {}),
                   fastModeAutoOnSecondsOverride: p.fastAutoOnSeconds,
                   onAgentRunStart: (runId) => {
                     agentRunStarted = true;

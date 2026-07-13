@@ -12,7 +12,6 @@ import { clearConfigCache, getRuntimeConfig } from "../config/config.js";
 import {
   appendTranscriptEvent,
   appendTranscriptMessage,
-  loadSessionEntry,
 } from "../config/sessions/session-accessor.js";
 import { appendSqliteTranscriptEvents } from "../config/sessions/session-accessor.sqlite.js";
 import { invalidateSessionStoreCache } from "../config/sessions/store-cache.js";

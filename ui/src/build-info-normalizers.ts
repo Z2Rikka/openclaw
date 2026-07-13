@@ -1,5 +1,5 @@
 // Shared build identity normalization for the runtime artifact and Vite config.
-import type { ControlUiBuildInfo } from "./build-info.ts";
+import type { ControlUiBuildInfo } from "./build-info-types.ts";
 
 type ControlUiBuildMetadata = Pick<ControlUiBuildInfo, "version" | "commit" | "builtAt">;
 

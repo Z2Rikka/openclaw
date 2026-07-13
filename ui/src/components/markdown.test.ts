@@ -1,7 +1,5 @@
 // Control UI tests cover markdown behavior.
-import { render } from "lit";
-import { describe, expect, it, vi } from "vitest";
-import { i18n } from "../i18n/index.ts";
+import { describe, expect, it } from "vitest";
 import { toSanitizedMarkdownHtml, toStreamingMarkdownHtml } from "./markdown.ts";
 
 function htmlFragment(html: string): HTMLElement {

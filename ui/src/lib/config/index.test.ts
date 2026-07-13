@@ -4,8 +4,6 @@ import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import type { ConfigSchemaResponse, ConfigSnapshot } from "../../api/types.ts";
 import { createRuntimeConfigCapability, findAgentConfigEntryIndex } from "./index.ts";
 
-type ConfigState = ReturnType<typeof createRuntimeConfigCapability>["state"];
-
 function deferred<T>() {
   let resolve!: (value: T) => void;
   let reject!: (reason?: unknown) => void;
@@ -36,52 +34,6 @@ function createGatewayHarness(client: GatewayBrowserClient) {
       }
     },
   };
-}
-
-function createState(): ConfigState {
-  return {
-    applySessionKey: "main",
-    client: null,
-    configActiveSection: null,
-    configActiveSubsection: null,
-    configApplying: false,
-    configForm: null,
-    configFormDirty: false,
-    configFormMode: "form",
-    configFormOriginal: null,
-    configIssues: [],
-    configLoading: false,
-    configRaw: "",
-    configRawOriginal: "",
-    configSaving: false,
-    configSchema: null,
-    configSchemaLoading: false,
-    configSchemaVersion: null,
-    configSearchQuery: "",
-    configSnapshot: null,
-    configDraftBaseHash: null,
-    configUiHints: {},
-    configValid: null,
-    connected: false,
-    lastError: null,
-  };
-}
-
-function createRequestWithConfigGet() {
-  return vi.fn().mockImplementation(async (method: string) => {
-    if (method === "config.get") {
-      return { config: {}, valid: true, issues: [], raw: "{\n}\n" };
-    }
-    return {};
-  });
-}
-
-function requireRequestCall(request: ReturnType<typeof vi.fn>, index = 0): unknown[] {
-  const call = request.mock.calls[index];
-  if (!call) {
-    throw new Error("expected client request call");
-  }
-  return call;
 }
 
 afterEach(() => {

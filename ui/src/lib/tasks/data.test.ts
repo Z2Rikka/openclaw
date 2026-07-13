@@ -3,7 +3,6 @@ import {
   applyTaskEvent,
   mergeTaskLists,
   normalizeTasksCancelResult,
-  normalizeTasksListResult,
   partitionTasks,
   sortTasks,
   type TaskSummary,

@@ -172,9 +172,10 @@ describe("custom theme import helpers", () => {
     const appendChild = vi.fn();
     const remove = vi.fn();
     const style = { id: "", textContent: "", remove } as unknown as HTMLStyleElement;
+    const createElement = vi.fn(() => style);
     const documentStub = {
       head: { appendChild },
-      createElement: vi.fn(() => style),
+      createElement,
       getElementById: vi.fn(() => null),
     } as unknown as Document;
     vi.stubGlobal("document", documentStub);
@@ -186,7 +187,8 @@ describe("custom theme import helpers", () => {
     expect(style.textContent).toContain(':root[data-theme="custom"]');
 
     vi.stubGlobal("document", {
-      ...documentStub,
+      head: documentStub.head,
+      createElement,
       getElementById: vi.fn(() => style),
     } as unknown as Document);
     syncCustomThemeStyleTag(null);

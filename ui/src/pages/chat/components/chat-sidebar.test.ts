@@ -1,6 +1,5 @@
 /* @vitest-environment jsdom */
 
-import { render } from "lit";
 import { describe, expect, it, vi } from "vitest";
 import { editorOpenUrl } from "../../../lib/editor-links.ts";
 import { hasUniformLineEndings } from "./chat-sidebar.ts";

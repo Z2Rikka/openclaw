@@ -1,9 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from "vitest";
-import {
-  measureRealtimeTalkAudioFrame,
-  RealtimeTalkMediaStreamMeter,
-} from "./realtime-talk-audio.ts";
+import { RealtimeTalkMediaStreamMeter } from "./realtime-talk-audio.ts";
 
 describe("RealtimeTalkMediaStreamMeter", () => {
   afterEach(() => {

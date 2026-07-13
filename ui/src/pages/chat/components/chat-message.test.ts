@@ -3,7 +3,6 @@
 import { html, render } from "lit";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { MessageGroup } from "../../../lib/chat/chat-types.ts";
-import { normalizeMessage } from "../../../lib/chat/message-normalizer.ts";
 import { renderMessageGroup, renderStreamGroup } from "./chat-message.ts";
 
 const localStorageValues = vi.hoisted(() => new Map<string, string>());
@@ -116,14 +115,6 @@ function expectElement<T extends Element>(
     throw new Error(`Expected ${selector} to match ${constructor.name}`);
   }
   return element;
-}
-
-function requireFetchCall(fetchMock: ReturnType<typeof vi.fn>, index = 0) {
-  const call = fetchMock.mock.calls[index] as unknown as [string, RequestInit?] | undefined;
-  if (!call) {
-    throw new Error(`Expected fetch call ${index}`);
-  }
-  return call;
 }
 
 function requireFetchCallForUrl(fetchMock: ReturnType<typeof vi.fn>, expectedUrl: string) {

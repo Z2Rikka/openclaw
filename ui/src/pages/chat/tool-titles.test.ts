@@ -8,6 +8,14 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
+function requireFirstRequestParams(request: ReturnType<typeof vi.fn>): unknown {
+  const call = request.mock.calls[0];
+  if (!call) {
+    throw new Error("expected tool title request");
+  }
+  return call[1];
+}
+
 describe("getToolCallTitle", () => {
   it("returns undefined for eligible calls without a stored title", () => {
     expect(getToolCallTitle("bash", { command: "git log --oneline -5" })).toBeUndefined();
@@ -33,7 +41,7 @@ describe("title fetch batching", () => {
     getToolCallTitle("demo__show", { value: "x".repeat(150) });
     await vi.advanceTimersByTimeAsync(1_000);
 
-    const items = (request.mock.calls[0]?.[1] as { items: unknown[] }).items;
+    const items = (requireFirstRequestParams(request) as { items: unknown[] }).items;
     expect(items).toHaveLength(2);
   });
 
@@ -50,7 +58,7 @@ describe("title fetch batching", () => {
     getToolCallTitle("bash", { ...args });
     await vi.advanceTimersByTimeAsync(1_000);
 
-    expect((request.mock.calls[0]?.[1] as { items: unknown[] }).items).toHaveLength(1);
+    expect((requireFirstRequestParams(request) as { items: unknown[] }).items).toHaveLength(1);
   });
 
   it("returns the stored title after the eligible request resolves", async () => {

@@ -1,7 +1,5 @@
 // @vitest-environment node
-import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it } from "vitest";
-import type { JsonSchema } from "../components/config-form.shared.ts";
 import {
   cloneConfigObject,
   removePathValue,
@@ -9,70 +7,6 @@ import {
   serializeConfigForm,
   setPathValue,
 } from "./config-form-utils.ts";
-
-/**
- * Minimal model provider schema matching the Zod-generated JSON Schema for
- * `models.providers` (see zod-schema.core.ts → ModelDefinitionSchema).
- */
-const modelDefinitionSchema: JsonSchema = {
-  type: "object",
-  properties: {
-    id: { type: "string" },
-    name: { type: "string" },
-    reasoning: { type: "boolean" },
-    contextWindow: { type: "number" },
-    maxTokens: { type: "number" },
-    cost: {
-      type: "object",
-      properties: {
-        input: { type: "number" },
-        output: { type: "number" },
-        cacheRead: { type: "number" },
-        cacheWrite: { type: "number" },
-      },
-    },
-  },
-};
-
-const modelProviderSchema: JsonSchema = {
-  type: "object",
-  properties: {
-    baseUrl: { type: "string" },
-    apiKey: { type: "string" },
-    models: {
-      type: "array",
-      items: modelDefinitionSchema,
-    },
-  },
-};
-
-const modelsConfigSchema: JsonSchema = {
-  type: "object",
-  properties: {
-    providers: {
-      type: "object",
-      additionalProperties: modelProviderSchema,
-    },
-  },
-};
-
-const topLevelSchema: JsonSchema = {
-  type: "object",
-  properties: {
-    gateway: {
-      type: "object",
-      properties: {
-        auth: {
-          type: "object",
-          properties: {
-            token: { type: "string" },
-          },
-        },
-      },
-    },
-    models: modelsConfigSchema,
-  },
-};
 
 function makeConfigWithProvider(): Record<string, unknown> {
   return {

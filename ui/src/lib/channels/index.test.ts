@@ -3,8 +3,6 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelsStatusSnapshot } from "../../api/types.ts";
 import { createChannelCapability } from "./index.ts";
 
-type ChannelsState = ReturnType<typeof createChannelCapability>["state"];
-
 function createDeferred<T>() {
   let resolve: ((value: T) => void) | undefined;
   let reject: ((reason?: unknown) => void) | undefined;
@@ -27,31 +25,6 @@ function createChannelsSnapshot(label: string): ChannelsStatusSnapshot {
     channelAccounts: {},
     channelDefaultAccountId: {},
   };
-}
-
-function createState(): ChannelsState {
-  return {
-    client: {
-      request: vi.fn(),
-    } as never,
-    connected: true,
-    channelsLoading: false,
-    channelsSnapshot: null,
-    channelsError: null,
-    channelsLastSuccess: null,
-    whatsappLoginMessage: null,
-    whatsappLoginQrDataUrl: "data:image/png;base64,current-qr",
-    whatsappLoginConnected: false,
-    whatsappBusy: false,
-  };
-}
-
-function requireClientRequest(state: ChannelsState) {
-  const request = state.client?.["request"];
-  if (!request) {
-    throw new Error("Expected channels controller client request");
-  }
-  return vi.mocked(request);
 }
 
 describe("channels controller WhatsApp wait", () => {

@@ -1,14 +1,8 @@
 // Compile-time identity for the Control UI artifact.
 import { normalizeControlUiBuildInfo } from "./build-info-normalizers.ts";
+import type { ControlUiBuildInfo } from "./build-info-types.ts";
 
-export type ControlUiBuildInfo = Readonly<{
-  version: string | null;
-  commit: string | null;
-  builtAt: string | null;
-  branch: string | null;
-  dirty: boolean | null;
-  buildId: string;
-}>;
+export type { ControlUiBuildInfo } from "./build-info-types.ts";
 
 declare global {
   // Vite replaces this property with one object so the UI and service worker

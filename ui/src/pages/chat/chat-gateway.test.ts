@@ -1,7 +1,6 @@
 // Control UI tests cover chat behavior.
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { retirePendingChatSideQuestion } from "../../lib/chat/side-result.ts";
-import { registerChatAttachmentPayload } from "./attachment-payload-store.ts";
 import {
   handleChatGatewayEvent,
   handleChatSideResultGatewayEvent,
@@ -52,23 +51,6 @@ function requireRecord(value: unknown): Record<string, unknown> {
     throw new Error("Expected a non-array record");
   }
   return value as Record<string, unknown>;
-}
-
-function requireFirstRequestCall(request: ReturnType<typeof vi.fn>): unknown[] {
-  const [call] = request.mock.calls;
-  if (!call) {
-    throw new Error("Expected client request call");
-  }
-  return call;
-}
-
-function createStartedChatSendAck(params: unknown) {
-  const requestParams = requireRecord(params);
-  const runId = requestParams.idempotencyKey;
-  if (typeof runId !== "string") {
-    throw new Error("Expected chat.send idempotencyKey");
-  }
-  return { runId, status: "started" as const };
 }
 
 function expectTextChatMessage(message: unknown, role: string, text: string): void {

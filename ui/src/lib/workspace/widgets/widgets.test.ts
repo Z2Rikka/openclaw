@@ -2,7 +2,6 @@
 // payload fixture into the rendered view model. The render fns are exercised
 // separately (empty/populated) to lock the empty/loading/error affordances.
 
-import { expectDefined } from "@openclaw/normalization-core";
 import { render } from "lit";
 import { describe, expect, it } from "vitest";
 import type { WorkspaceWidget } from "../types.ts";

@@ -217,12 +217,15 @@ describe("renderCustomWidgetHost bridge", () => {
       manifest: manifest({ name: "prompt-send-test", capabilities: ["prompt:send"] }),
       context: host({ client: { request } as never, confirmPrompt: () => true }),
     });
-    connected.childPort.postMessage({
-      v: 1,
-      type: "workspace:sendPrompt",
-      requestId: "r1",
-      text: "Summarize this workspace",
-    });
+    connected.childPort.postMessage(
+      {
+        v: 1,
+        type: "workspace:sendPrompt",
+        requestId: "r1",
+        text: "Summarize this workspace",
+      },
+      [],
+    );
 
     await vi.waitFor(() => expect(request).toHaveBeenCalledOnce());
     expect(request).toHaveBeenCalledWith("chat.send", {
@@ -246,12 +249,15 @@ describe("renderCustomWidgetHost bridge", () => {
       manifest: manifest({ bindings: { value: binding } }),
       context: host({ client: { request } as never }),
     });
-    connected.childPort.postMessage({
-      v: 1,
-      type: "workspace:getData",
-      requestId: "r1",
-      bindingId: "value",
-    });
+    connected.childPort.postMessage(
+      {
+        v: 1,
+        type: "workspace:getData",
+        requestId: "r1",
+        bindingId: "value",
+      },
+      [],
+    );
 
     await vi.waitFor(() => expect(connected.posts.length).toBeGreaterThan(0));
     expect(connected.posts[0]).toMatchObject({

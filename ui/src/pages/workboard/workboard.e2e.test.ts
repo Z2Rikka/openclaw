@@ -5,7 +5,7 @@ import { chromium, type Browser, type BrowserContext, type Locator, type Page } 
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { PROTOCOL_VERSION } from "../../../../packages/gateway-protocol/src/version.js";
 import type { GatewaySessionRow } from "../../api/types.ts";
-import { type WorkboardCard, type WorkboardStatus } from "../../lib/workboard/index.ts";
+import type { WorkboardCard, WorkboardStatus } from "../../lib/workboard/index.ts";
 import {
   canRunPlaywrightChromium,
   installMockGateway,

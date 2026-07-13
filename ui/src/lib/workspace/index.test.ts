@@ -1,33 +1,24 @@
 import { expectDefined } from "@openclaw/normalization-core";
 import { describe, expect, it, vi } from "vitest";
-import type { GatewayBrowserClient, GatewayEventListener } from "../../api/gateway.ts";
+import type { GatewayBrowserClient } from "../../api/gateway.ts";
 import {
   clearActiveDrag,
   getWorkspaceState,
-  hiddenTabs,
   hideWidget,
   loadWorkspace,
   moveWidget,
   moveWidgetToTab,
-  orderedTabs,
   registerActiveDrag,
   removeWidgetFromTab,
-  resolveActiveSlug,
   resolveBinding,
-  setWidgetCollapsed,
   updateWidgetTitle,
   startBindingPolling,
   stopWorkspace,
   subscribeToWorkspaceEvents,
-  visibleTabs,
 } from "./index.ts";
 import type { WorkspaceDocument } from "./types.ts";
 
 type MockClient = Pick<GatewayBrowserClient, "request" | "addEventListener">;
-
-function itemAt<T>(items: readonly T[], index: number, label: string): T {
-  return expectDefined(items[index], `${label} ${index}`);
-}
 
 function mockClient(overrides: Partial<MockClient> = {}): GatewayBrowserClient {
   return {

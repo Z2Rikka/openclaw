@@ -1,8 +1,5 @@
 import { expectDefined } from "./expect.js";
-import {
-  normalizeLowercaseStringOrEmpty,
-  normalizeOptionalString,
-} from "./string-coerce.js";
+import { normalizeLowercaseStringOrEmpty, normalizeOptionalString } from "./string-coerce.js";
 
 /** Options for choosing the unit used by bare numeric duration values. */
 export type DurationMsParseOptions = {

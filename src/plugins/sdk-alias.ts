@@ -769,62 +769,6 @@ const WORKSPACE_PACKAGE_ALIAS_ENTRIES: WorkspacePackageAliasEntry[] = [
     distFile: "read-byte-stream-with-limit.mjs",
   },
   {
-    packageName: "@openclaw/normalization-core",
-    packageDir: "normalization-core",
-    subpath: "",
-    srcFile: "index.ts",
-    distFile: "index.mjs",
-  },
-  {
-    packageName: "@openclaw/normalization-core",
-    packageDir: "normalization-core",
-    subpath: "boolean-coercion",
-    srcFile: "boolean-coercion.ts",
-    distFile: "boolean-coercion.mjs",
-  },
-  {
-    packageName: "@openclaw/normalization-core",
-    packageDir: "normalization-core",
-    subpath: "error-coercion",
-    srcFile: "error-coercion.ts",
-    distFile: "error-coercion.mjs",
-  },
-  {
-    packageName: "@openclaw/normalization-core",
-    packageDir: "normalization-core",
-    subpath: "number-coercion",
-    srcFile: "number-coercion.ts",
-    distFile: "number-coercion.mjs",
-  },
-  {
-    packageName: "@openclaw/normalization-core",
-    packageDir: "normalization-core",
-    subpath: "record-coerce",
-    srcFile: "record-coerce.ts",
-    distFile: "record-coerce.mjs",
-  },
-  {
-    packageName: "@openclaw/normalization-core",
-    packageDir: "normalization-core",
-    subpath: "string-coerce",
-    srcFile: "string-coerce.ts",
-    distFile: "string-coerce.mjs",
-  },
-  {
-    packageName: "@openclaw/normalization-core",
-    packageDir: "normalization-core",
-    subpath: "string-normalization",
-    srcFile: "string-normalization.ts",
-    distFile: "string-normalization.mjs",
-  },
-  {
-    packageName: "@openclaw/normalization-core",
-    packageDir: "normalization-core",
-    subpath: "utf16-slice",
-    srcFile: "utf16-slice.ts",
-    distFile: "utf16-slice.mjs",
-  },
-  {
     packageName: "@openclaw/retry",
     packageDir: "retry",
     subpath: "",
@@ -1380,11 +1324,13 @@ function resolveWorkspacePackageAliasMap(params: {
   const aliasMap: Record<string, string> = {};
   const workspacePackageAliasEntries = [
     ...WORKSPACE_PACKAGE_ALIAS_ENTRIES,
-    ...listWorkspacePackageExportAliasEntries({
-      packageRoot,
-      packageName: "@openclaw/acp-core",
-      packageDir: "acp-core",
-    }),
+    ...["normalization-core", "acp-core"].flatMap((packageDir) =>
+      listWorkspacePackageExportAliasEntries({
+        packageRoot,
+        packageName: `@openclaw/${packageDir}`,
+        packageDir,
+      }),
+    ),
   ];
   for (const entry of workspacePackageAliasEntries) {
     const alias = entry.subpath ? `${entry.packageName}/${entry.subpath}` : entry.packageName;

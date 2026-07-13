@@ -1564,6 +1564,18 @@ describe("plugin sdk alias helpers", () => {
       srcFile: "boolean-coercion.ts",
       distFile: "boolean-coercion.mjs",
     });
+    const normalizationAgentId = writeWorkspacePackageEntry({
+      root: fixture.root,
+      packageDir: "normalization-core",
+      srcFile: "agent-id.ts",
+      distFile: "agent-id.mjs",
+    });
+    const normalizationDuration = writeWorkspacePackageEntry({
+      root: fixture.root,
+      packageDir: "normalization-core",
+      srcFile: "duration.ts",
+      distFile: "duration.mjs",
+    });
     const normalizationStringCoerce = writeWorkspacePackageEntry({
       root: fixture.root,
       packageDir: "normalization-core",
@@ -1639,6 +1651,8 @@ describe("plugin sdk alias helpers", () => {
     fs.rmSync(acpCoreRuntimeTypes.distFile);
     fs.rmSync(normalizationCore.distFile);
     fs.rmSync(normalizationBooleanCoercion.distFile);
+    fs.rmSync(normalizationAgentId.distFile);
+    fs.rmSync(normalizationDuration.distFile);
     fs.rmSync(normalizationStringCoerce.distFile);
     fs.rmSync(retry.distFile);
     fs.rmSync(terminalCore.distFile);
@@ -1700,6 +1714,12 @@ describe("plugin sdk alias helpers", () => {
     );
     expect(fs.realpathSync(aliases["@openclaw/normalization-core/boolean-coercion"] ?? "")).toBe(
       fs.realpathSync(normalizationBooleanCoercion.srcFile),
+    );
+    expect(fs.realpathSync(aliases["@openclaw/normalization-core/agent-id"] ?? "")).toBe(
+      fs.realpathSync(normalizationAgentId.srcFile),
+    );
+    expect(fs.realpathSync(aliases["@openclaw/normalization-core/duration"] ?? "")).toBe(
+      fs.realpathSync(normalizationDuration.srcFile),
     );
     expect(fs.realpathSync(aliases["@openclaw/normalization-core/string-coerce"] ?? "")).toBe(
       fs.realpathSync(normalizationStringCoerce.srcFile),
@@ -1855,7 +1875,7 @@ describe("plugin sdk alias helpers", () => {
     ).toBe(fs.realpathSync(modelCatalogCore.distFile));
   });
 
-  it("derives acp-core aliases from packaged root dist when package metadata is absent", () => {
+  it("derives workspace aliases from packaged root dist when package metadata is absent", () => {
     const fixture = createPluginSdkAliasFixture();
     const sourcePluginEntry = writePluginEntry(
       fixture.root,
@@ -1864,6 +1884,21 @@ describe("plugin sdk alias helpers", () => {
     const acpRuntimeErrors = path.join(fixture.root, "dist", "acp-core", "runtime", "errors.js");
     mkdirSafeDir(path.dirname(acpRuntimeErrors));
     fs.writeFileSync(acpRuntimeErrors, "export {};\n", "utf-8");
+    const normalizationAgentId = path.join(
+      fixture.root,
+      "dist",
+      "normalization-core",
+      "agent-id.js",
+    );
+    const normalizationDuration = path.join(
+      fixture.root,
+      "dist",
+      "normalization-core",
+      "duration.js",
+    );
+    mkdirSafeDir(path.dirname(normalizationAgentId));
+    fs.writeFileSync(normalizationAgentId, "export {};\n", "utf-8");
+    fs.writeFileSync(normalizationDuration, "export {};\n", "utf-8");
     const cwdWithoutOpenClawPackage = makeTempDir();
 
     const aliases = withCwd(cwdWithoutOpenClawPackage, () =>
@@ -1874,6 +1909,12 @@ describe("plugin sdk alias helpers", () => {
 
     expect(fs.realpathSync(aliases["@openclaw/acp-core/runtime/errors"] ?? "")).toBe(
       fs.realpathSync(acpRuntimeErrors),
+    );
+    expect(fs.realpathSync(aliases["@openclaw/normalization-core/agent-id"] ?? "")).toBe(
+      fs.realpathSync(normalizationAgentId),
+    );
+    expect(fs.realpathSync(aliases["@openclaw/normalization-core/duration"] ?? "")).toBe(
+      fs.realpathSync(normalizationDuration),
     );
   });
 

@@ -441,18 +441,11 @@ function buildMarkdownCoreDistEntries(): Record<string, string> {
 }
 
 function buildNormalizationCoreDistEntries(): Record<string, string> {
-  return {
-    index: "packages/normalization-core/src/index.ts",
-    "agent-id": "packages/normalization-core/src/agent-id.ts",
-    "boolean-coercion": "packages/normalization-core/src/boolean-coercion.ts",
-    duration: "packages/normalization-core/src/duration.ts",
-    "error-coercion": "packages/normalization-core/src/error-coercion.ts",
-    "number-coercion": "packages/normalization-core/src/number-coercion.ts",
-    "record-coerce": "packages/normalization-core/src/record-coerce.ts",
-    "string-coerce": "packages/normalization-core/src/string-coerce.ts",
-    "string-normalization": "packages/normalization-core/src/string-normalization.ts",
-    "utf16-slice": "packages/normalization-core/src/utf16-slice.ts",
-  };
+  const entries =
+    "index agent-id boolean-coercion duration error-coercion number-coercion record-coerce string-coerce string-normalization utf16-slice";
+  return Object.fromEntries(
+    entries.split(" ").map((entry) => [entry, `packages/normalization-core/src/${entry}.ts`]),
+  );
 }
 
 function buildRetryDistEntries(): Record<string, string> {

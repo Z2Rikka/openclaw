@@ -3439,6 +3439,7 @@ export const chatHandlers: GatewayRequestHandlers = {
     let gatewayWorkAdmission: Awaited<ReturnType<typeof beginSessionWorkAdmission>> | undefined;
     let admittedRunAbort: ReturnType<typeof registerChatAbortController> | undefined;
     let restartSafeAdmission = false;
+    let restartSafePriorTerminalSourceRunId: string | undefined;
     let reservationSuperseded = false;
     let supersedingResult: DedupeEntry | undefined;
     const assertChatWorkAdmissionAllowed = (commitOutcome: boolean) => {
@@ -3562,6 +3563,11 @@ export const chatHandlers: GatewayRequestHandlers = {
           sessionId: admittedSessionId,
           sessionKey,
         });
+      restartSafePriorTerminalSourceRunId = restartSafeAdmission
+        ? latestEntry?.restartRecoveryDeliverySourceRunId
+        : undefined;
+      // A terminal Control UI claim can survive a crash after status commit.
+      // The transcript transaction merges its source with fresh tombstones.
       admittedRunAbort = registerChatAbortController({
         chatAbortControllers: context.chatAbortControllers,
         runId: clientRunId,
@@ -3873,6 +3879,9 @@ export const chatHandlers: GatewayRequestHandlers = {
                 restartRecoveryDeliveryContext: undefined,
                 restartRecoveryDeliveryRunId: clientRunId,
                 restartRecoveryDeliverySourceRunId: clientRunId,
+                ...(restartSafePriorTerminalSourceRunId
+                  ? { restartRecoveryTerminalRunIds: [restartSafePriorTerminalSourceRunId] }
+                  : {}),
                 runtimeMs: undefined,
                 abortedLastRun: false,
                 updatedAt: admissionStartedAt,

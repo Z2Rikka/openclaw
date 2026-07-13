@@ -98,7 +98,7 @@ import { normalizeInputProvenance, type InputProvenance } from "../../sessions/i
 import { resolveSendPolicy } from "../../sessions/send-policy.js";
 import { parseAgentSessionKey } from "../../sessions/session-key-utils.js";
 import { beginSessionWorkAdmission } from "../../sessions/session-lifecycle-admission.js";
-import { type UserTurnInput } from "../../sessions/user-turn-transcript.js";
+import type { UserTurnInput } from "../../sessions/user-turn-transcript.js";
 import {
   parseInlineDirectives,
   stripInlineDirectiveTagsForDelivery,

@@ -1187,7 +1187,7 @@
   "ui/src/lib/agents/display.ts": 661,
   "ui/src/lib/chat/commands.ts": 533,
   "ui/src/lib/chat/message-normalizer.ts": 530,
-  "ui/src/lib/config/index.ts": 947,
+  "ui/src/lib/config/index.ts": 943,
   "ui/src/lib/cron/index.ts": 1319,
   "ui/src/lib/nodes/index.ts": 900,
   "ui/src/lib/sessions/index.ts": 1451,

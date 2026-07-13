@@ -4350,6 +4350,7 @@ export const KNIP_UNUSED_EXPORT_BASELINE = [
   "src/talk/talk-session-controller.ts: TalkEventContext",
   "src/tasks/cron-task-cancel.ts: CRON_TASK_RUN_SETTLEMENT_TRACKING_MAX_MS",
   "src/tasks/cron-task-cancel.ts: resetActiveCronTaskRunsForTests",
+  "src/tasks/detached-task-runtime-state.ts: DetachedTaskLifecycleRuntime",
   "src/tasks/detached-task-runtime.ts: cancelDetachedTaskRunById",
   "src/tasks/detached-task-runtime.ts: getDetachedTaskLifecycleRuntimeRegistration",
   "src/tasks/detached-task-runtime.ts: registerDetachedTaskRuntime",

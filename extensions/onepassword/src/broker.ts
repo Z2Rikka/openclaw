@@ -43,7 +43,7 @@ export type StandingGrant = {
   targetFingerprint: string;
 };
 
-export type AuditInternalErrorCode =
+type AuditInternalErrorCode =
   | "INVALID_ACTION"
   | "INVALID_REASON"
   | "INVALID_SLUG"
@@ -54,7 +54,7 @@ export type AuditInternalErrorCode =
   | "GRANT_EXPIRED"
   | "APPROVAL_CANCELLED";
 
-export type AuditErrorCode = OnePasswordErrorCode | AuditInternalErrorCode;
+type AuditErrorCode = OnePasswordErrorCode | AuditInternalErrorCode;
 
 export type BrokerStores = {
   audit: PluginStateKeyedStore<AuditRow>;

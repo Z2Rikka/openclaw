@@ -3,8 +3,8 @@
 import { render } from "lit";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("../markdown.ts", async (importOriginal) => await importOriginal());
-vi.mock("../tool-display.ts", () => ({
+vi.mock("../../../components/markdown.ts", async (importOriginal) => await importOriginal());
+vi.mock("../../../lib/chat/tool-display.ts", () => ({
   formatToolDetail: (display: { detail?: string }) => display.detail,
   resolveToolDisplay: ({ name, args }: { name: string; args?: unknown }) => {
     const argRecord =
@@ -30,13 +30,17 @@ vi.mock("../tool-display.ts", () => ({
     };
   },
 }));
-import { t } from "../../../i18n/index.ts";
-import {
+
+// Other UI tests retain this module with different display mocks. Reset the
+// shared graph so this file's mocks own the renderer under test.
+vi.resetModules();
+const { t } = await import("../../../i18n/index.ts");
+const {
   formatDistinctCollapsedToolSummaryText,
   formatCollapsedToolPreviewText,
   formatCollapsedToolSummaryText,
-} from "../../../lib/chat/tool-cards.ts";
-import { renderToolCard, renderToolPreview } from "./chat-tool-cards.ts";
+} = await import("../../../lib/chat/tool-cards.ts");
+const { renderToolCard, renderToolPreview } = await import("./chat-tool-cards.ts");
 
 function requireFirstMockArg(
   mock: ReturnType<typeof vi.fn>,
